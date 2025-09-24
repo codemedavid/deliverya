@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS site_settings (
 ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 
 -- Create policies for public read access
+DROP POLICY IF EXISTS "Anyone can read site settings" ON site_settings;
 CREATE POLICY "Anyone can read site settings"
   ON site_settings
   FOR SELECT
@@ -77,6 +78,7 @@ CREATE POLICY "Anyone can read site settings"
   USING (true);
 
 -- Create policies for authenticated admin access
+DROP POLICY IF EXISTS "Authenticated users can manage site settings" ON site_settings;
 CREATE POLICY "Authenticated users can manage site settings"
   ON site_settings
   FOR ALL
@@ -85,6 +87,7 @@ CREATE POLICY "Authenticated users can manage site settings"
   WITH CHECK (true);
 
 -- Create updated_at trigger for site_settings
+DROP TRIGGER IF EXISTS update_site_settings_updated_at ON site_settings;
 CREATE TRIGGER update_site_settings_updated_at
   BEFORE UPDATE ON site_settings
   FOR EACH ROW
@@ -92,9 +95,9 @@ CREATE TRIGGER update_site_settings_updated_at
 
 -- Insert default site settings
 INSERT INTO site_settings (id, value, type, description) VALUES
-  ('site_name', 'Beracah Cafe', 'text', 'The name of the cafe/restaurant'),
-  ('site_logo', 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop', 'image', 'The logo image URL for the site'),
-  ('site_description', 'Welcome to Beracah Cafe - Your perfect coffee destination', 'text', 'Short description of the cafe'),
+  ('site_name', 'deliverya', 'text', 'The name of the retail store'),
+  ('site_logo', '/logo.jpg', 'image', 'The logo image URL for the site'),
+  ('site_description', 'Welcome to deliverya - Your perfect shopping destination', 'text', 'Short description of the retail store'),
   ('currency', 'PHP', 'text', 'Currency symbol for prices'),
   ('currency_code', 'PHP', 'text', 'Currency code for payments')
 ON CONFLICT (id) DO NOTHING;

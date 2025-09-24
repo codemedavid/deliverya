@@ -25,14 +25,14 @@ const Cart: React.FC<CartProps> = ({
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center py-16">
-          <div className="text-6xl mb-4">☕</div>
+          <div className="text-6xl mb-4">🛒</div>
           <h2 className="text-2xl font-playfair font-medium text-black mb-2">Your cart is empty</h2>
-          <p className="text-gray-600 mb-6">Add some delicious items to get started!</p>
+          <p className="text-gray-600 mb-6">Add some products to get started!</p>
           <button
             onClick={onContinueShopping}
-            className="bg-red-600 text-white px-6 py-3 rounded-full hover:bg-red-700 transition-all duration-200"
+            className="bg-primary-orange text-white px-6 py-3 rounded-full hover:bg-orange-600 transition-all duration-200"
           >
-            Browse Menu
+            Browse Products
           </button>
         </div>
       </div>
@@ -53,7 +53,7 @@ const Cart: React.FC<CartProps> = ({
         <h1 className="text-3xl font-noto font-semibold text-black">Your Cart</h1>
         <button
           onClick={clearCart}
-          className="text-red-500 hover:text-red-600 transition-colors duration-200"
+          className="text-primary-orange hover:text-orange-600 transition-colors duration-200"
         >
           Clear All
         </button>
@@ -81,17 +81,17 @@ const Cart: React.FC<CartProps> = ({
               </div>
               
               <div className="flex items-center space-x-4 ml-4">
-                <div className="flex items-center space-x-3 bg-yellow-100 rounded-full p-1">
+                <div className="flex items-center space-x-3 bg-secondary-gray rounded-full p-1">
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="p-2 hover:bg-yellow-200 rounded-full transition-colors duration-200"
+                    className="p-2 hover:bg-gray-300 rounded-full transition-colors duration-200"
                   >
                     <Minus className="h-4 w-4" />
                   </button>
                   <span className="font-semibold text-black min-w-[32px] text-center">{item.quantity}</span>
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="p-2 hover:bg-yellow-200 rounded-full transition-colors duration-200"
+                    className="p-2 hover:bg-gray-300 rounded-full transition-colors duration-200"
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -103,7 +103,7 @@ const Cart: React.FC<CartProps> = ({
                 
                 <button
                   onClick={() => removeFromCart(item.id)}
-                  className="p-2 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200"
+                  className="p-2 text-primary-orange hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-200"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
@@ -121,7 +121,7 @@ const Cart: React.FC<CartProps> = ({
         
         <button
           onClick={onCheckout}
-          className="w-full bg-red-600 text-white py-4 rounded-xl hover:bg-red-700 transition-all duration-200 transform hover:scale-[1.02] font-medium text-lg"
+          className="w-full bg-primary-orange text-white py-4 rounded-xl hover:bg-orange-600 transition-all duration-200 transform hover:scale-[1.02] font-medium text-lg"
         >
           Proceed to Checkout
         </button>

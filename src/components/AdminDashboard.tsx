@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X, ArrowLeft, Coffee, TrendingUp, Package, Users, Lock, FolderOpen, CreditCard, Settings } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, ArrowLeft, Store, TrendingUp, Package, Users, FolderOpen, CreditCard, Settings } from 'lucide-react';
 import { MenuItem, Variation, AddOn } from '../types';
 import { addOnCategories } from '../data/menuData';
 import { useMenu } from '../hooks/useMenu';
-import { useCategories, Category } from '../hooks/useCategories';
+import { useCategories } from '../hooks/useCategories';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 import ImageUpload from './ImageUpload';
 import CategoryManager from './CategoryManager';
 import PaymentMethodManager from './PaymentMethodManager';
@@ -11,12 +12,13 @@ import SiteSettingsManager from './SiteSettingsManager';
 
 const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('beracah_admin_auth') === 'true';
+    return localStorage.getItem('deliverya_admin_auth') === 'true';
   });
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const { menuItems, loading, addMenuItem, updateMenuItem, deleteMenuItem } = useMenu();
   const { categories } = useCategories();
+  const { siteSettings } = useSiteSettings();
   const [currentView, setCurrentView] = useState<'dashboard' | 'items' | 'add' | 'edit' | 'categories' | 'payments' | 'settings'>('dashboard');
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -232,9 +234,9 @@ const AdminDashboard: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'ClickEats@Admin!2025') {
+    if (password === 'deliverya@Admin!2025') {
       setIsAuthenticated(true);
-      localStorage.setItem('beracah_admin_auth', 'true');
+      localStorage.setItem('deliverya_admin_auth', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid password');
@@ -243,7 +245,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('beracah_admin_auth');
+    localStorage.removeItem('deliverya_admin_auth');
     setPassword('');
     setCurrentView('dashboard');
   };
@@ -254,10 +256,17 @@ const AdminDashboard: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-4">
-              <Lock className="h-8 w-8 text-white" />
+            <div className="mx-auto w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 ring-2 ring-primary-orange">
+              <img 
+                src={siteSettings?.site_logo || "/logo.jpg"} 
+                alt={siteSettings?.site_name || "deliverya"}
+                className="w-12 h-12 rounded-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/logo.jpg";
+                }}
+              />
             </div>
-            <h1 className="text-2xl font-playfair font-semibold text-black">Admin Access</h1>
+            <h1 className="text-2xl font-playfair font-semibold text-black">deliverya Admin</h1>
             <p className="text-gray-600 mt-2">Enter password to access the admin dashboard</p>
           </div>
           
@@ -279,7 +288,7 @@ const AdminDashboard: React.FC = () => {
             
             <button
               type="submit"
-              className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium"
+              className="w-full bg-primary-orange text-white py-3 rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium"
             >
               Access Dashboard
             </button>
@@ -933,8 +942,15 @@ const AdminDashboard: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Coffee className="h-8 w-8 text-black" />
-              <h1 className="text-2xl font-noto font-semibold text-black">ClickEats Admin</h1>
+              <img 
+                src={siteSettings?.site_logo || "/logo.jpg"} 
+                alt={siteSettings?.site_name || "deliverya"}
+                className="w-8 h-8 rounded object-cover ring-2 ring-primary-orange"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/logo.jpg";
+                }}
+              />
+              <h1 className="text-2xl font-noto font-semibold text-black">deliverya Admin</h1>
             </div>
             <div className="flex items-center space-x-4">
               <a
@@ -983,8 +999,8 @@ const AdminDashboard: React.FC = () => {
 
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-cream-500 rounded-lg">
-                <Coffee className="h-6 w-6 text-white" />
+              <div className="p-2 bg-primary-orange rounded-lg">
+                <Store className="h-6 w-6 text-white" />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Popular Items</p>
