@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               {loading ? (
                 <div className="w-24 h-6 bg-gray-200 rounded animate-pulse" />
               ) : (
-                'Deliverya Kalibo - Delivery & Pickup'
+                'Deliverya Mart - Delivery & Pickup'
               )}
             </h1>
           </button>
